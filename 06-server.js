@@ -12,6 +12,10 @@ app.get('/static/*',respondStatic);
 
 app.listen(port, () => console.log(`Server listening on port ${port}`) )
 
+function respondText (req, res) {
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('hi');
+}
 function respondJson (req, res) {
   res.json({text: 'hi', numbers: [1,2,3]})
 }
@@ -36,7 +40,3 @@ function respondStatic(req, res) {
     .on('error', () => respondNotFound(req, res))
     .pipe(res)
 }
-
-
-
-
