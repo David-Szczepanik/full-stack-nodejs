@@ -2,9 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Viewer</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+      img {
+          max-width: 50%;
+          height: auto;
+          display: block;
+          margin: 10px 0;
+      }
+  </style>
 </head>
 <body>
+
+<div id="photo-container"></div>
+
+<script>
+  $(document).ready(function() {
+    // Fetch products data from the server
+    $.get('http://localhost:1337/products', function(data) {
+      // Loop through each product and create HTML elements
+      data.forEach(function(product) {
+        // Create a div to hold each photo and its details
+        var photoDiv = $('<div>').appendTo('#photo-container');
+
+        // Add the description
+        $('<p>').text('Description: ' + product.description).appendTo(photoDiv);
+
+        // Add the image
+        $('<img>').attr('src', product.img).attr('alt', 'Building Photo').appendTo(photoDiv);
+
+        // Add photographer information
+        $('<p>').html('Photographer: <a href="' + product.userLink + '">' + product.userName + '</a>').appendTo(photoDiv);
+
+        // Add tags
+        $('<p>').text('Tags: ' + product.tags.join(', ')).appendTo(photoDiv);
+      });
+    });
+  });
+</script>
 
 </body>
 </html>

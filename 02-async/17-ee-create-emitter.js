@@ -1,5 +1,6 @@
 const http = require ('http');
 const EventEmitter = require('events');
+
 function createEventSource (url) {
   const source = new EventEmitter()
 
